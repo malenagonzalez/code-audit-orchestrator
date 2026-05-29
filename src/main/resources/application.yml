@@ -30,6 +30,11 @@ application:
       secret-key: ${JWT_SECRET:change-me-in-production-min-32-chars!!}
       expiration: 86400000  # 24 h
 
+app:
+  ai-service:
+    url: ${AI_SERVICE_URL:http://localhost:8000}
+    api-key: ${AI_SERVICE_API_KEY:changeme}
+
 springdoc:
   api-docs:
     path: /api-docs
