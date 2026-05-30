@@ -32,13 +32,13 @@ public class AuditService {
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
 
-        AuditRecord record = AuditRecord.builder()
+        AuditRecord draft = AuditRecord.builder()
                 .user(user)
                 .code(request.code())
                 .language(request.language())
                 .status("PENDING")
                 .build();
-        record = auditRecordRepository.save(record);
+        final AuditRecord record = auditRecordRepository.save(draft);
 
         try {
             AiInferenceClient.AiResponse aiResponse = aiInferenceClient.analyze(request);

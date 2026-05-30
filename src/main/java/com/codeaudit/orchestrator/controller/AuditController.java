@@ -7,6 +7,7 @@ import com.codeaudit.orchestrator.service.AuditService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,7 +35,7 @@ public class AuditController {
             @RequestParam(defaultValue = "10") int size,
             @AuthenticationPrincipal UserDetails userDetails
     ) {
-        return auditService.list(userDetails.getUsername(), page, size);
+        return auditService.listByUser(userDetails.getUsername(), PageRequest.of(page, size));
     }
 
     @GetMapping("/{id}")
@@ -42,7 +43,7 @@ public class AuditController {
             @PathVariable Long id,
             @AuthenticationPrincipal UserDetails userDetails
     ) {
-        return auditService.findById(id, userDetails.getUsername());
+        return auditService.getById(userDetails.getUsername(), id);
     }
 
     @DeleteMapping("/{id}")
@@ -51,6 +52,6 @@ public class AuditController {
             @PathVariable Long id,
             @AuthenticationPrincipal UserDetails userDetails
     ) {
-        auditService.delete(id, userDetails.getUsername());
+        auditService.deleteById(userDetails.getUsername(), id);
     }
 }
