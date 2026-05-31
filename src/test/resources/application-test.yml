@@ -8,8 +8,7 @@ spring:
   flyway:
     enabled: false
 
-application:
-  security:
-    jwt:
-      secret-key: test-secret-key-for-unit-tests-only-32c
-      expiration: 3600000
+app:
+  jwt:
+    secret: test-secret-key-for-unit-tests-only-32c
+    expiration-ms: 3600000
